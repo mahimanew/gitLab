@@ -1,0 +1,23 @@
+stages:
+  - checkList
+checkList:
+    image: python
+    stage: checkList
+    before_script:
+      - apt-get update -qy
+      - apt-get install -y awscli 
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - aws configure set default.region $AWS_DEFAULT_REGION
+    script:  
+      - pip install boto3  
+      - python Main.py  
+      - echo "Success"
+    environment:
+      name:  staging
+    only:
+    -  staging
+
+
+
+
